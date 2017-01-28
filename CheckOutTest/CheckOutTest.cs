@@ -34,6 +34,16 @@ namespace CheckOutTest
             
         }
 
+        [TestMethod]
+        public void ScanAA_Equals_100()
+        {
+             var checkOut = new CheckOut.CheckOut();
+             checkOut.Scan("A");
+             checkOut.Scan("A");
+
+             Assert.AreEqual(100, checkOut.GetTotalPrice());
+        }
+
     }
 
     public class SingleScanTestData
