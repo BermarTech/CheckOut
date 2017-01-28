@@ -47,8 +47,9 @@ namespace CheckOutTest
             {
                 var checkOut = new CheckOut.CheckOut();
                 checkOut.Scan(testCase.ScanType);
+                int actualResult = checkOut.GetTotalPrice();
 
-                Assert.AreEqual(testCase.ExpectedValue, checkOut.GetTotalPrice());
+                Assert.AreEqual(testCase.ExpectedValue, actualResult);
 
             }
             
@@ -66,7 +67,8 @@ namespace CheckOutTest
                     checkOut.Scan(scan);
                 }
 
-                Assert.AreEqual(testCase.ExpectedValue, checkOut.GetTotalPrice());
+                int actualResult = checkOut.GetTotalPrice();
+                Assert.AreEqual(testCase.ExpectedValue, actualResult);
 
             }
         }

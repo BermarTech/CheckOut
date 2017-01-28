@@ -40,9 +40,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckOut.cs" />
+    <Compile Include="Headspring\Enumeration.cs" />
     <Compile Include="ICheckout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sku.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Headspring\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

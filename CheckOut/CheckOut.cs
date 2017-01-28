@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CheckOut
 {
@@ -12,51 +10,31 @@ namespace CheckOut
 
         public void Scan(string item)
         {
-            var sku = new Sku(item);
+            var sku = Sku.Parse(item);
 
-            if (item == "A")
-            {
-                sku.FullPrice = 50;
-                sku.DiscountFrequency = 3;
-                sku.DiscountPrice = 30;
-                sku.ScanNumber = GetCountOfSkuTypeAlreadyScanned(item) + 1;
-            }
-
-            if (item == "B")
-            {
-                sku.FullPrice = 30;
-                sku.DiscountFrequency = 2;
-                sku.DiscountPrice = 15;
-                sku.ScanNumber = GetCountOfSkuTypeAlreadyScanned(item) + 1;
-            }
-
-            if (item == "C")
-            {
-                sku.FullPrice = 20;
-                sku.DiscountFrequency = 0;
-                sku.DiscountPrice = 0;
-                sku.ScanNumber = GetCountOfSkuTypeAlreadyScanned(item) + 1;
-            }
-
-            if (item == "D")
-            {
-                sku.FullPrice = 15;
-                sku.DiscountFrequency = 0;
-                sku.DiscountPrice = 0;
-                sku.ScanNumber = GetCountOfSkuTypeAlreadyScanned(item) + 1;
-            }
 
             skus.Add(sku);
         }
 
         public int GetTotalPrice()
         {
-            return skus.Sum(x => x.GetUnitPrice());
+            int total = 0;
+
+            var groupedSkus = skus.GroupBy(x => x.Value);
+
+            foreach (var group in groupedSkus)
+            {
+                int scanItemsForGroup = 0;
+
+                foreach (var groupedItem in group)
+                {
+                    scanItemsForGroup++;
+                    total += groupedItem.GetUnitPrice(scanItemsForGroup);
+                }
+            }
+
+            return total;
         }
 
-        private int GetCountOfSkuTypeAlreadyScanned(string skuType)
-        {
-            return skus.Count(x => x.SkuType == skuType);
-        }
     }
 }
