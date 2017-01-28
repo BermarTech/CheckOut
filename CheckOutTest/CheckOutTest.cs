@@ -61,6 +61,20 @@ namespace CheckOutTest
             }
         }
 
+        [TestMethod]
+        public void ScanAAA_Equals_130()
+        {
+            foreach (var testCase in DoubleScanDataList)
+            {
+                var checkOut = new CheckOut.CheckOut();
+                checkOut.Scan("A");
+                checkOut.Scan("A");
+                checkOut.Scan("A");
+
+                Assert.AreEqual(130, checkOut.GetTotalPrice());
+
+            }
+        }
     }
 
     public class ScanTestData
