@@ -16,22 +16,34 @@ namespace CheckOut
 
             if (item == "A")
             {
-                sku.UnitPice = 50;
+                sku.FullPrice = 50;
+                sku.DiscountFrequency = 3;
+                sku.DiscountPrice = 30;
+                sku.ScanNumber = GetCountOfSkuTypeAlreadyScanned(item) + 1;
             }
 
             if (item == "B")
             {
-                sku.UnitPice = 30;
+                sku.FullPrice = 30;
+                sku.DiscountFrequency = 2;
+                sku.DiscountPrice = 15;
+                sku.ScanNumber = GetCountOfSkuTypeAlreadyScanned(item) + 1;
             }
 
             if (item == "C")
             {
-                sku.UnitPice = 20;
+                sku.FullPrice = 20;
+                sku.DiscountFrequency = 0;
+                sku.DiscountPrice = 0;
+                sku.ScanNumber = GetCountOfSkuTypeAlreadyScanned(item) + 1;
             }
 
             if (item == "D")
             {
-                sku.UnitPice = 15;
+                sku.FullPrice = 15;
+                sku.DiscountFrequency = 0;
+                sku.DiscountPrice = 0;
+                sku.ScanNumber = GetCountOfSkuTypeAlreadyScanned(item) + 1;
             }
 
             skus.Add(sku);
@@ -39,7 +51,12 @@ namespace CheckOut
 
         public int GetTotalPrice()
         {
-            return skus.Sum(x => x.UnitPice);
+            return skus.Sum(x => x.GetUnitPrice());
+        }
+
+        private int GetCountOfSkuTypeAlreadyScanned(string skuType)
+        {
+            return skus.Count(x => x.SkuType == skuType);
         }
     }
 }
