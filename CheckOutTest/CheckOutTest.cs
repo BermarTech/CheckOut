@@ -1,45 +1,52 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CheckOutTest
 {
     [TestClass]
     public class CheckOutTest
     {
-        [TestMethod]
-        public void ScanA_Equals_50()
-        {
-            var checkOut = new CheckOut.CheckOut();
-            checkOut.Scan("A");
+        private List<SingleScanTestData> SingleScanDataList;
 
-            Assert.AreEqual(50, checkOut.GetTotalPrice());
+        [TestInitialize]
+        public void TestInitialize(){
+            SingleScanDataList = new List<SingleScanTestData> {
+                new SingleScanTestData("A", 50),
+                new SingleScanTestData("B", 30),
+                new SingleScanTestData("C", 20),
+                new SingleScanTestData("D", 15)
+            };
+        
         }
 
         [TestMethod]
-        public void ScanB_Equals_30()
+        public void SingleScanTests()
         {
-            var checkOut = new CheckOut.CheckOut();
-            checkOut.Scan("B");
+            foreach (var testCase in SingleScanDataList)
+            {
+                var checkOut = new CheckOut.CheckOut();
+                checkOut.Scan(testCase.ScanType);
 
-            Assert.AreEqual(30, checkOut.GetTotalPrice());
+                Assert.AreEqual(testCase.ExpectedValue, checkOut.GetTotalPrice());
+
+            }
+            
         }
 
-        [TestMethod]
-        public void ScanC_Equals_20()
-        {
-            var checkOut = new CheckOut.CheckOut();
-            checkOut.Scan("C");
+    }
 
-            Assert.AreEqual(20, checkOut.GetTotalPrice());
-        }
+    public class SingleScanTestData
+    {
+        
+        public string ScanType;
 
-        [TestMethod]
-        public void ScanD_Equals_15()
-        {
-            var checkOut = new CheckOut.CheckOut();
-            checkOut.Scan("D");
+        public int ExpectedValue;
+        
+        public SingleScanTestData(string scanType, int expectedValue){
+            ScanType = scanType;
+            ExpectedValue = expectedValue;
 
-            Assert.AreEqual(15, checkOut.GetTotalPrice());
         }
     }
 }
