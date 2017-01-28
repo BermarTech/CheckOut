@@ -8,13 +8,13 @@ namespace CheckOut
 {
     public class CheckOut : ICheckOut
     {
-        private int total;
+        private int total = 0;
 
         public void Scan(string item)
         {
             if (item == "A")
             {
-                total = 50;
+                total += 50;
             }
 
             if (item == "B")
