@@ -9,11 +9,10 @@ namespace CheckOutTest
         [TestMethod]
         public void ScanA_Equals_50()
         {
-            var checkOut = new CheckOut.CheckOut;
+            var checkOut = new CheckOut.CheckOut();
             checkOut.Scan("A");
 
-            Assert.AreEqual(50, checkOut.GetTotal);
-
+            Assert.AreEqual(50, checkOut.GetTotalPrice());
         }
     }
 }
