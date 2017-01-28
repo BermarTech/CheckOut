@@ -11,6 +11,8 @@ namespace CheckOutTest
 
         private List<ScanTestData> DoubleScanDataList;
 
+        private List<ScanTestData> MultipleScanDataListWithDiscountItemsList;
+
         [TestInitialize]
         public void TestInitialize(){
             SingleScanDataList = new List<ScanTestData> {
@@ -26,6 +28,14 @@ namespace CheckOutTest
                 new ScanTestData("A,C", 70),
                 new ScanTestData("B,C", 50),
                 new ScanTestData("C,D", 35)
+            };
+
+            MultipleScanDataListWithDiscountItemsList = new List<ScanTestData> {
+                new ScanTestData("A,A,A", 130),
+                new ScanTestData("B,B", 45),
+                new ScanTestData("A,B,B", 95),
+                new ScanTestData("A,A,A,D", 145),
+                new ScanTestData("A,A,A,B,B", 175)
             };
 
         }
@@ -62,19 +72,22 @@ namespace CheckOutTest
         }
 
         [TestMethod]
-        public void ScanAAA_Equals_130()
+        public void MultipleScanWithDiscountItemTests()
         {
-            foreach (var testCase in DoubleScanDataList)
+            foreach (var testCase in MultipleScanDataListWithDiscountItemsList)
             {
                 var checkOut = new CheckOut.CheckOut();
-                checkOut.Scan("A");
-                checkOut.Scan("A");
-                checkOut.Scan("A");
+                string[] scans = testCase.ScanType.Split(',');
+                foreach (string scan in scans)
+                {
+                    checkOut.Scan(scan);
+                }
 
-                Assert.AreEqual(130, checkOut.GetTotalPrice());
+                Assert.AreEqual(testCase.ExpectedValue, checkOut.GetTotalPrice());
 
             }
         }
+
     }
 
     public class ScanTestData
