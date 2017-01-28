@@ -19,17 +19,17 @@ namespace CheckOut
 
             if (item == "B")
             {
-                total = 30;
+                total += 30;
             }
 
             if (item == "C")
             {
-                total = 20;
+                total += 20;
             }
 
             if (item == "D")
             {
-                total = 15;
+                total += 15;
             }
         }
 

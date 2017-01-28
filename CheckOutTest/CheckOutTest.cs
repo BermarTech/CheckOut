@@ -7,17 +7,27 @@ namespace CheckOutTest
     [TestClass]
     public class CheckOutTest
     {
-        private List<SingleScanTestData> SingleScanDataList;
+        private List<ScanTestData> SingleScanDataList;
+
+        private List<ScanTestData> DoubleScanDataList;
 
         [TestInitialize]
         public void TestInitialize(){
-            SingleScanDataList = new List<SingleScanTestData> {
-                new SingleScanTestData("A", 50),
-                new SingleScanTestData("B", 30),
-                new SingleScanTestData("C", 20),
-                new SingleScanTestData("D", 15)
+            SingleScanDataList = new List<ScanTestData> {
+                new ScanTestData("A", 50),
+                new ScanTestData("B", 30),
+                new ScanTestData("C", 20),
+                new ScanTestData("D", 15)
             };
-        
+
+            DoubleScanDataList = new List<ScanTestData> {
+                new ScanTestData("A,A", 100),
+                new ScanTestData("A,B", 80),
+                new ScanTestData("A,C", 70),
+                new ScanTestData("B,C", 50),
+                new ScanTestData("C,D", 35)
+            };
+
         }
 
         [TestMethod]
@@ -35,25 +45,32 @@ namespace CheckOutTest
         }
 
         [TestMethod]
-        public void ScanAA_Equals_100()
+        public void DoubleScanTests()
         {
-             var checkOut = new CheckOut.CheckOut();
-             checkOut.Scan("A");
-             checkOut.Scan("A");
+            foreach (var testCase in DoubleScanDataList)
+            { 
+                var checkOut = new CheckOut.CheckOut();
+                string[] scans = testCase.ScanType.Split(',');
+                foreach (string scan in scans)
+                {
+                    checkOut.Scan(scan);
+                }
 
-             Assert.AreEqual(100, checkOut.GetTotalPrice());
+                Assert.AreEqual(testCase.ExpectedValue, checkOut.GetTotalPrice());
+
+            }
         }
 
     }
 
-    public class SingleScanTestData
+    public class ScanTestData
     {
         
         public string ScanType;
 
         public int ExpectedValue;
         
-        public SingleScanTestData(string scanType, int expectedValue){
+        public ScanTestData(string scanType, int expectedValue){
             ScanType = scanType;
             ExpectedValue = expectedValue;
 
