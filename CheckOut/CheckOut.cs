@@ -8,14 +8,24 @@ namespace CheckOut
 {
     public class CheckOut : ICheckOut
     {
+        private int total;
+
         public void Scan(string item)
         {
-            
+            if (item == "A")
+            {
+                total = 50;
+            }
+
+            if (item == "B")
+            {
+                total = 30;
+            }
         }
 
         public int GetTotalPrice()
         {
-            return 50;
+            return total;
         }
     }
 }
