@@ -23,5 +23,23 @@ namespace CheckOutTest
 
             Assert.AreEqual(30, checkOut.GetTotalPrice());
         }
+
+        [TestMethod]
+        public void ScanC_Equals_20()
+        {
+            var checkOut = new CheckOut.CheckOut();
+            checkOut.Scan("C");
+
+            Assert.AreEqual(20, checkOut.GetTotalPrice());
+        }
+
+        [TestMethod]
+        public void ScanD_Equals_15()
+        {
+            var checkOut = new CheckOut.CheckOut();
+            checkOut.Scan("D");
+
+            Assert.AreEqual(15, checkOut.GetTotalPrice());
+        }
     }
 }

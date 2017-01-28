@@ -21,6 +21,16 @@ namespace CheckOut
             {
                 total = 30;
             }
+
+            if (item == "C")
+            {
+                total = 20;
+            }
+
+            if (item == "D")
+            {
+                total = 15;
+            }
         }
 
         public int GetTotalPrice()
